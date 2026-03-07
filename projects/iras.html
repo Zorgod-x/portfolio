@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
   
-    <title>Image Generator</title>
+    <<title>Scheduling tasks with CRON</title>
     <meta content="" name="descriptison">
     <meta content="" name="keywords">
   
@@ -43,17 +43,38 @@
   
             <div class="col-lg-12 portfolio-info">
               <br>
-              <h2 style="color:#12d640">Image Generator</h2>
+              <h2 style="color:#12d640">Scheduling tasks with CRON</h2>
               <ul>
-                <li><strong>Tech Stack</strong>: TJava, NodeJS, Python, HTML, CSS, Javascript, AWS(S3, EC2, SQS)</li>
-                <li><strong>Github URL</strong>: <a href="https://github.com/rajaprerak/image_recognition_as_a_service" target="_blank">Project Link</a></li>
+                <li><strong>Tech Stack</strong>: Linux (Ubuntu),  Bash, Python,  cron (Scheduled Tasks), SSH (Secure Shell)</li>
+                 <li><strong>Project Description</strong>: The Automated Weekly Remote Backup project is a demonstration of the power of automation using cron.
+                     It focuses on automating the process of securely backing up important data to a remote server on a weekly basis.</li>
               </ul>
   
               <p>
-                Built an elastic web application that automatically scales in and scales out 20 EC2 instances based on the traffic of current users with the help of AWS services. Created custom AMIs to deploy image recognition app on EC2 instance; used SQS to handle request and response.              </p>
+               Step 1: Backup Script (Already Created) <br/> <br/>
+               Step 2: Automate with cron <br/>
+                    Edit cron Jobs: Open your crontab file with crontab -e<br/>
+
+                    Schedule the Backup: to run the script every Sunday at midnight:
+              <br/>      0 0 * * 0 /path/to/backup_script.sh
+
               </p>
+              </p>
+                <b>Problem Encountered</b>: Password Prompt for Remote Connection<br/> <br/>
+
+                When the backup script was initially run via cron, it encountered a problem. rsync required a password to connect to the remote server,
+                which was not practical for an automated weekly backup process. <br/> <br/>
               <p>
-                Deployed image recognition system on AWS for the clients to access and successfully tested the application by generating 1000 requests.              </p>
+               <b>Solution: Importing an SSH Key  </b>  <br/>
+              To resolve the password prompt issue and enable passwordless authentication for rsync, the solution is to use SSH keys<br/> <br/>
+                  1. Generate SSH Key Pair : ssh-keygen -t rsa -b 4096 <br/>
+                  2. Copy the Public Key to the Remote Server: ssh-copy-id user@remote-server <br/>
+                  3. Ensure Proper File Permissions:<br/>
+                  -Check that the .ssh directory on the remote server has the appropriate permissions (700).<br/>
+                  -Ensure that the authorized_keys file within the .ssh directory has the correct permissions (600).<br/>
+                  4. Test SSH Key Authentication: ssh user@remote-server (no password should be required)<br/>
+
+              </p>
               </p>
             </div>
   
